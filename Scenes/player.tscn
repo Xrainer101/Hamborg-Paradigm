@@ -1,9 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://dlgmp5ykm183q"]
+[gd_scene load_steps=18 format=3 uid="uid://dlgmp5ykm183q"]
 
 [ext_resource type="Script" uid="uid://ciug1k2osirhl" path="res://Scripts/Player/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://ct1eosj6jn5h4" path="res://Assets/metroid_asset_1_2/Sprites/Player/Player_metroid.png" id="2_6t5aa"]
 [ext_resource type="Script" uid="uid://c1dcin82errem" path="res://Scripts/state_machine.gd" id="3_6t5aa"]
+[ext_resource type="PackedScene" uid="uid://b4trvg040e0k7" path="res://Scenes/components/hit_box.tscn" id="3_x3wgy"]
 [ext_resource type="Script" uid="uid://beg3hdtlrba4s" path="res://Scripts/Player/States/player_movement.gd" id="4_vgqql"]
+[ext_resource type="PackedScene" uid="uid://c3b1jjuxoqcr2" path="res://Scenes/components/hurt_box.tscn" id="5_fkybt"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3smsa"]
+radius = 12.0
+height = 32.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
 radius = 6.0
@@ -136,8 +142,13 @@ _data = {
 &"Walk": SubResource("Animation_hqtel")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x3wgy"]
+radius = 7.0
+height = 24.0
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 5
+collision_mask = 4
 script = ExtResource("1_cvnsp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -147,6 +158,16 @@ vframes = 7
 frame = 34
 
 [node name="Sword" type="Node" parent="Sprite2D"]
+
+[node name="HitBox" parent="Sprite2D/Sword" instance=ExtResource("3_x3wgy")]
+z_index = 5
+position = Vector2(4, 8)
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Sword/HitBox"]
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_3smsa")
+debug_color = Color(0.995339, 0, 0.206971, 0.42)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 11)
@@ -166,3 +187,11 @@ initial_state = NodePath("PlayerMovement")
 [node name="PlayerMovement" type="Node" parent="StateMachine"]
 script = ExtResource("4_vgqql")
 metadata/_custom_type_script = "uid://beg3hdtlrba4s"
+
+[node name="HurtBox" parent="." instance=ExtResource("5_fkybt")]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, 11)
+shape = SubResource("CapsuleShape2D_x3wgy")
+debug_color = Color(0.657092, 0.516198, 0, 0.42)

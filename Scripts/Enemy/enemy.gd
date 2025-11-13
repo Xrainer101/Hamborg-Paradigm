@@ -2,6 +2,7 @@ class_name Enemy extends CharacterBody2D
 
 @onready var sprite: Sprite2D = $Sprite2D
 @export var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
+@export var hp: int = 3
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
