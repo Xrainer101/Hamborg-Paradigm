@@ -165,4 +165,6 @@ initial_state = NodePath("PlayerMovement")
 
 [node name="PlayerMovement" type="Node" parent="StateMachine"]
 script = ExtResource("4_vgqql")
+speed = null
+jump_velocity = null
 metadata/_custom_type_script = "uid://beg3hdtlrba4s"
