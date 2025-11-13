@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bkpwvqywltah6"]
 
-[ext_resource type="Texture2D" uid="uid://cgt02ocis4x4" path="res://metroid_asset_1_2/Sprites/Environment/2d_metroidvania_serie_mockup_1_tileset.png" id="1_1rc8e"]
+[ext_resource type="Texture2D" uid="uid://cgt02ocis4x4" path="res://Assets/metroid_asset_1_2/Sprites/Environment/2d_metroidvania_serie_mockup_1_tileset.png" id="1_1rc8e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n5262"]
 size = Vector2(48, 16)

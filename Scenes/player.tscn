@@ -1,7 +1,8 @@
 [gd_scene load_steps=13 format=3 uid="uid://dlgmp5ykm183q"]
 
 [ext_resource type="Script" uid="uid://ciug1k2osirhl" path="res://Scripts/Player/player.gd" id="1_cvnsp"]
-[ext_resource type="Texture2D" uid="uid://ct1eosj6jn5h4" path="res://metroid_asset_1_2/Sprites/Player/Player_metroid.png" id="2_6t5aa"]
+[ext_resource type="Texture2D" uid="uid://ct1eosj6jn5h4" path="res://Assets/metroid_asset_1_2/Sprites/Player/Player_metroid.png" id="2_6t5aa"]
+[ext_resource type="Script" uid="uid://c1dcin82errem" path="res://Scripts/state_machine.gd" id="3_6t5aa"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
 radius = 6.0
@@ -134,9 +135,8 @@ _data = {
 &"Walk": SubResource("Animation_hqtel")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nvl01"]
-
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+z_index = 5
 script = ExtResource("1_cvnsp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -155,9 +155,8 @@ libraries = {
 }
 autoplay = "Idle"
 
-[node name="Sword" type="Area2D" parent="."]
-position = Vector2(26, 0)
+[node name="Sword" type="Node" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sword"]
-shape = SubResource("RectangleShape2D_nvl01")
-debug_color = Color(0.906638, 0.219516, 0.528657, 0.42)
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("_entity")]
+script = ExtResource("3_6t5aa")
+_entity = NodePath("..")
