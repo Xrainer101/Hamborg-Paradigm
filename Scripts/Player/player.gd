@@ -1,4 +1,4 @@
-extends CharacterBody2D
+class_name Player extends CharacterBody2D
 
 var direction: float
 @export var speed: float = 200.0
@@ -25,7 +25,7 @@ func _physics_process(delta) -> void:
 		velocity.y = jump_velocity
 	
 	if Input.is_action_just_released("jump") and velocity.y < 0:
-		velocity.y = 0
+		velocity.y /= 2
 	
 	direction = Input.get_axis("walk_left", "walk_right")
 	
