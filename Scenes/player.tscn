@@ -146,6 +146,8 @@ hframes = 8
 vframes = 7
 frame = 34
 
+[node name="Sword" type="Node" parent="Sprite2D"]
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 11)
 shape = SubResource("CapsuleShape2D_onrkg")
@@ -155,8 +157,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_n7ghd")
 }
 autoplay = "Idle"
-
-[node name="Sword" type="Node" parent="."]
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("_entity", "initial_state")]
 script = ExtResource("3_6t5aa")
