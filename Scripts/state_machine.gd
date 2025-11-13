@@ -13,6 +13,7 @@ func _ready() -> void:
 			child.Transitioned.connect(on_child_transition)
 			if _entity:
 				child.entity = _entity
+			child.init()
 	
 	if initial_state:
 		initial_state.Enter()

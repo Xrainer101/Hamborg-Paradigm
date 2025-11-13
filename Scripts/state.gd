@@ -3,6 +3,10 @@ class_name State extends Node
 
 signal Transitioned
 
+#What happens when we initialize this state?
+func init() -> void:
+	pass
+
 func Enter() -> void:
 	pass
 

@@ -1,8 +1,7 @@
 class_name EnemyIdle extends State
 
-@onready var anim: AnimationPlayer = $"../../AnimationPlayer"
-
 @export var max_move_speed : int = 10
+@export var knockback_speed : float = 30.0
 var move_speed : int = max_move_speed
 var entity : CharacterBody2D
 
@@ -11,10 +10,11 @@ var wander_time : float
 
 var player : CharacterBody2D
 
-func randomize_wander():
-	move_direction = randi_range(-1, 1)
-	wander_time = randf_range(1, 3)
-	move_speed = randi_range(0, max_move_speed)
+#What happens when we initialize this state?
+func init() -> void:
+	entity._damaged.connect(enemy_damaged)
+	# entity.death.connect(_death)
+	pass
 
 func Enter():
 	player = get_tree().get_first_node_in_group("Player")
@@ -27,9 +27,9 @@ func Update(delta: float):
 		randomize_wander()
 	
 	if entity.velocity.x == 0:
-		anim.play("Idle")
+		entity.anim.play("Idle")
 	elif entity.velocity.x != 0:
-		anim.play("Walk")
+		entity.anim.play("Walk")
 
 func Physics_Update(delta: float):
 	if entity:
@@ -38,3 +38,14 @@ func Physics_Update(delta: float):
 	var distance_to_player : Vector2 = player.global_position - entity.global_position
 	if distance_to_player.length() < 80:
 		Transitioned.emit(self, "EnemyFollow")
+
+func randomize_wander():
+	move_direction = randi_range(-1, 1)
+	wander_time = randf_range(1, 3)
+	move_speed = randi_range(0, max_move_speed)
+
+func enemy_damaged( hit_box : HitBox ) -> void:
+	var direction : float = entity.global_position.direction_to(hit_box.global_position).x
+	entity.velocity.y = 0.0
+	entity.velocity.x = direction * -knockback_speed
+	Transitioned.emit(self, "EnemyStun")
