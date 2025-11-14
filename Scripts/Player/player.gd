@@ -22,6 +22,9 @@ func _process(delta: float) -> void:
 func _physics_process(delta) -> void:
 	move_and_slide()
 
+func _update_animation(anim_name : String) -> void:
+	anim.play(anim_name)
+
 func _take_damage(hit_box : HitBox) -> void:
 	if invulnerable == true:
 		return

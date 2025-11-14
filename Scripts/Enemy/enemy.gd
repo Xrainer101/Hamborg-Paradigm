@@ -30,6 +30,9 @@ func _physics_process(delta: float) -> void:
 		velocity.y += gravity * delta
 	move_and_slide()
 
+func _update_animation(anim_name : String) -> void:
+	anim.play(anim_name)
+
 func _take_damage(hit_box : HitBox) -> void:
 	print("Enemy's taking damage")
 	if invulnerable == true:

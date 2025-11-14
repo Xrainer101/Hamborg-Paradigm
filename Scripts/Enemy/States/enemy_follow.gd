@@ -5,7 +5,7 @@ class_name EnemyFollow extends State
 var entity : CharacterBody2D
 var player : CharacterBody2D
 
-func init() -> void:
+func Init():
 	entity._damaged.connect(enemy_damaged)
 	# entity.death.connect(_death)
 	pass
@@ -15,9 +15,9 @@ func Enter():
 
 func Update(delta : float):
 	if entity.velocity.x == 0:
-		entity.anim.play("Idle")
+		entity._update_animation("Idle")
 	elif entity.velocity.x != 0:
-		entity.anim.play("Walk")
+		entity._update_animation("Walk")
 
 func Physics_Update(delta : float):
 	var distance : Vector2 = player.global_position - entity.global_position

@@ -11,7 +11,7 @@ var wander_time : float
 var player : CharacterBody2D
 
 #What happens when we initialize this state?
-func init() -> void:
+func Init():
 	entity._damaged.connect(enemy_damaged)
 	# entity.death.connect(_death)
 	pass
@@ -27,9 +27,9 @@ func Update(delta: float):
 		randomize_wander()
 	
 	if entity.velocity.x == 0:
-		entity.anim.play("Idle")
+		entity._update_animation("Idle")
 	elif entity.velocity.x != 0:
-		entity.anim.play("Walk")
+		entity._update_animation("Walk")
 
 func Physics_Update(delta: float):
 	if entity:

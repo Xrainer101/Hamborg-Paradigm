@@ -4,7 +4,7 @@ class_name State extends Node
 signal Transitioned
 
 #What happens when we initialize this state?
-func init() -> void:
+func Init() -> void:
 	pass
 
 func Enter() -> void:
@@ -13,8 +13,11 @@ func Enter() -> void:
 func Exit() -> void:
 	pass
 
-func Update(_delta: float) -> void:
+func Update(_delta : float) -> void:
 	pass
 
-func Physics_Update(_delta: float) -> void:
+func Physics_Update(_delta : float) -> void:
+	pass
+
+func Handle_Input(_event : InputEvent) -> void:
 	pass

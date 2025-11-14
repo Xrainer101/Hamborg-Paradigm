@@ -10,7 +10,7 @@ var _animation_finished : bool = false
 func Enter():
 	_animation_finished = false
 	entity.make_invulnerable(invulnerable_duration)
-	entity.anim.play("Stun")
+	entity._update_animation("Stun")
 	entity.anim.animation_finished.connect( _on_animation_finished )
 	pass
 

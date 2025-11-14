@@ -11,7 +11,7 @@ func Enter():
 	entity.invulnerable = true
 	_animation_finished = false
 	
-	entity.anim.play("Stun")
+	entity._update_animation("Stun")
 	entity.anim.animation_finished.connect( _on_animation_finished )
 	pass
 
