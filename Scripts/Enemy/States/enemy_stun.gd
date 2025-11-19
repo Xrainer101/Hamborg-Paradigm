@@ -20,9 +20,11 @@ func Exit():
 	entity.anim.animation_finished.disconnect (_on_animation_finished )
 	pass
 
-func Update(delta: float):
+func Update(delta : float):
 	if _animation_finished == true:
 		Transitioned.emit(self, "EnemyFollow")
+
+func Physics_Update(delta : float):
 	entity.velocity.x -= entity.velocity.x * decelerate_speed * delta
 
 func _on_animation_finished(_a : String) -> void:

@@ -21,6 +21,8 @@ func Exit():
 func Update(delta: float):
 	if _animation_finished == true:
 		Transitioned.emit(self, "PlayerMovement")
+
+func Physics_Update(delta: float):
 	entity.velocity.x -= entity.velocity.x * decelerate_speed * delta
 
 func _on_animation_finished(_a : String) -> void:

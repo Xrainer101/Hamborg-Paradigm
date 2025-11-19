@@ -3,9 +3,13 @@ class_name Player extends CharacterBody2D
 @export var max_hp : int = 8
 var hp : int = max_hp
 var invulnerable : bool = false
+var direction : float
+
+@export var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var anim: AnimationPlayer = $AnimationPlayer
 @onready var hurt_box: HurtBox = $HurtBox
+@onready var sprite: Sprite2D = $Sprite2D
 
 signal _damaged( hit_box : HitBox )
 signal _death( hit_box : HitBox )
@@ -17,6 +21,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	direction = Input.get_axis("walk_left", "walk_right")
 	pass
 
 func _physics_process(delta) -> void:

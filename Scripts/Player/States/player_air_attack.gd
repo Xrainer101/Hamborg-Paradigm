@@ -1,10 +1,12 @@
-class_name PlayerGroundAttack extends State
+class_name PlayerAirAttack extends State
 
 var entity : CharacterBody2D
 
 var attacking : bool = false
 
 @onready var sword_hit_box: HitBox = $"../../Sprite2D/Sword/HitBox"
+@export var speed : float = 150.0
+@export var air_acceleration: float = 50.0
 @export_range(1,20,0.5) var decelerate_speed : float = 5.0
 @export var knockback_speed : float = 60.0
 
@@ -14,7 +16,7 @@ func Init():
 	pass
 
 func Enter():
-	#print("Enter attack state")
+	#print("Enter air attack state")
 	entity._update_animation("Sword")
 	
 	entity.anim.animation_finished.connect(EndAttack)
@@ -42,8 +44,9 @@ func Update(delta : float):
 func Physics_Update(delta : float):
 	if not entity.is_on_floor():
 		entity.velocity.y += entity.gravity * delta
-	
-	entity.velocity.x -= entity.velocity.x * decelerate_speed * delta
+		entity.velocity.x = clampf(entity.velocity.x + (entity.direction * air_acceleration), -speed, speed)
+	else:
+		entity.velocity.x -= entity.velocity.x * decelerate_speed * delta
 
 func player_damaged( hit_box : HitBox ) -> void:
 	var direction: Vector2 = entity.global_position.direction_to(hit_box.global_position)

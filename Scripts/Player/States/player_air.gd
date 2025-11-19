@@ -1,8 +1,9 @@
-class_name PlayerMovement extends State
+class_name PlayerAir extends State
 
 var entity: CharacterBody2D
 
 @export var speed : float = 150.0
+@export var air_acceleration: float = 50.0
 @export var knockback_speed : float = 60.0
 @export var jump_velocity: float = -350.0
 
@@ -11,36 +12,33 @@ func Init():
 	# entity.death.connect(_death)
 	pass
 
+func Enter():
+	entity._update_animation("Jump")
+
 func Physics_Update(delta: float):
-	#Make sure entity is on the ground
+	# Should later make gravity stronger when going down
 	if not entity.is_on_floor():
 		entity.velocity.y += entity.gravity * delta
 	
+	#Short hop
+	if Input.is_action_just_released("jump") and entity.velocity.y < 0:
+		entity.velocity.y /= 2
+	
+	# Handle air movement
 	if entity.direction > 0:
 		entity.sprite.scale.x = 1
 	elif entity.direction < 0:
 		entity.sprite.scale.x = -1
+
+	entity.velocity.x = clampf(entity.velocity.x + (entity.direction * air_acceleration), -speed, speed)
 	
-	if entity.direction == 0:
-		entity._update_animation("Idle")
-	else:
-		entity._update_animation("Walk")
-	
-	if entity.direction:
-		entity.velocity.x = entity.direction * speed
-	else:
-		entity.velocity.x = move_toward(entity.velocity.x, 0, speed)
+	if entity.is_on_floor():
+		Transitioned.emit(self, "PlayerMovement")
 
 func Handle_Input(_event : InputEvent):
-	#Handle jump
-	if Input.is_action_just_pressed("jump") and entity.is_on_floor():
-		#print("Enter jump state")
-		entity.velocity.y = jump_velocity
-		Transitioned.emit(self, "PlayerAir")
-	#Handle attack
-	elif Input.is_action_pressed("attack"):
+	if Input.is_action_pressed("attack"):
 		#print("Player attacked")
-		Transitioned.emit(self, "PlayerGroundAttack")
+		Transitioned.emit(self, "PlayerAirAttack")
 
 func player_damaged( hit_box : HitBox ) -> void:
 	var direction: Vector2 = entity.global_position.direction_to(hit_box.global_position)
