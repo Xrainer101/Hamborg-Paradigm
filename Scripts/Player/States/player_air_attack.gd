@@ -8,10 +8,10 @@ var attacking : bool = false
 @export var speed : float = 150.0
 @export var air_acceleration: float = 50.0
 @export_range(1,20,0.5) var decelerate_speed : float = 5.0
-@export var knockback_speed : float = 60.0
+# @export var knockback_speed : float = 60.0
 
 func Init():
-	entity._damaged.connect(player_damaged)
+	# entity._damaged.connect(player_damaged)
 	# entity.death.connect(_death)
 	pass
 
@@ -48,11 +48,11 @@ func Physics_Update(delta : float):
 	else:
 		entity.velocity.x -= entity.velocity.x * decelerate_speed * delta
 
-func player_damaged( hit_box : HitBox ) -> void:
-	var direction: Vector2 = entity.global_position.direction_to(hit_box.global_position)
-	entity.velocity = direction * -knockback_speed
-	entity.velocity.y = clampf(entity.velocity.y, entity.velocity.y, 0.0)
-	Transitioned.emit(self, "PlayerStun")
+# func player_damaged( hit_box : HitBox ) -> void:
+	# var direction: Vector2 = entity.global_position.direction_to(hit_box.global_position)
+	# entity.velocity = direction * -knockback_speed
+	# entity.velocity.y = clampf(entity.velocity.y, entity.velocity.y, 0.0)
+	# Transitioned.emit(self, "PlayerStun")
 
 func EndAttack( _newAnimName : String) -> void:
 	attacking = false

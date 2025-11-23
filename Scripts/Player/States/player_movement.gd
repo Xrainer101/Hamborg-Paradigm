@@ -3,11 +3,11 @@ class_name PlayerMovement extends State
 var entity: CharacterBody2D
 
 @export var speed : float = 150.0
-@export var knockback_speed : float = 60.0
+# @export var knockback_speed : float = 60.0
 @export var jump_velocity: float = -350.0
 
 func Init():
-	entity._damaged.connect(player_damaged)
+	# entity._damaged.connect(player_damaged)
 	# entity.death.connect(_death)
 	pass
 
@@ -42,8 +42,8 @@ func Handle_Input(_event : InputEvent):
 		#print("Player attacked")
 		Transitioned.emit(self, "PlayerGroundAttack")
 
-func player_damaged( hit_box : HitBox ) -> void:
-	var direction: Vector2 = entity.global_position.direction_to(hit_box.global_position)
-	entity.velocity = direction * -knockback_speed
-	entity.velocity.y = clampf(entity.velocity.y, entity.velocity.y, 0.0)
-	Transitioned.emit(self, "PlayerStun")
+# func player_damaged( hit_box : HitBox ) -> void:
+	# var direction: Vector2 = entity.global_position.direction_to(hit_box.global_position)
+	# entity.velocity = direction * -knockback_speed
+	# entity.velocity.y = clampf(entity.velocity.y, entity.velocity.y, 0.0)
+	# Transitioned.emit(self, "PlayerStun")
