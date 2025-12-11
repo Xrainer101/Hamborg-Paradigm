@@ -13,6 +13,7 @@ func _ready() -> void:
 			child.Transitioned.connect(on_child_transition)
 			if _entity:
 				child.entity = _entity
+			child.Init()
 	
 	if initial_state:
 		initial_state.Enter()
@@ -28,10 +29,14 @@ func _physics_process(delta: float) -> void:
 	if current_state:
 		current_state.Physics_Update(delta)
 
-func on_child_transition(state: State, new_state_name: String):
+func _unhandled_input(event: InputEvent) -> void:
+	if current_state:
+		current_state.Handle_Input(event)
+
+func on_child_transition(_state: State, new_state_name: String):
 	# if the state calling the transition is not the current state, stop
-	if state != current_state:
-		return
+	#if state != current_state:
+		#return
 	
 	# Get the new state and see if it exists
 	var new_state: State = states.get(new_state_name.to_lower())

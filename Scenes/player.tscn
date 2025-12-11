@@ -1,13 +1,53 @@
-[gd_scene load_steps=14 format=3 uid="uid://dlgmp5ykm183q"]
+[gd_scene load_steps=25 format=3 uid="uid://dlgmp5ykm183q"]
 
 [ext_resource type="Script" uid="uid://ciug1k2osirhl" path="res://Scripts/Player/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://ct1eosj6jn5h4" path="res://Assets/metroid_asset_1_2/Sprites/Player/Player_metroid.png" id="2_6t5aa"]
 [ext_resource type="Script" uid="uid://c1dcin82errem" path="res://Scripts/state_machine.gd" id="3_6t5aa"]
+[ext_resource type="PackedScene" uid="uid://b4trvg040e0k7" path="res://Scenes/components/hit_box.tscn" id="3_x3wgy"]
 [ext_resource type="Script" uid="uid://beg3hdtlrba4s" path="res://Scripts/Player/States/player_movement.gd" id="4_vgqql"]
+[ext_resource type="PackedScene" uid="uid://c3b1jjuxoqcr2" path="res://Scenes/components/hurt_box.tscn" id="5_fkybt"]
+[ext_resource type="Script" uid="uid://unk1a6hjmoot" path="res://Scripts/Player/States/player_stun.gd" id="6_3smsa"]
+[ext_resource type="Script" uid="uid://6fa15jjnebuw" path="res://Scripts/Player/States/player_air.gd" id="6_tx1dd"]
+[ext_resource type="Script" uid="uid://57b07a6hp68c" path="res://Scripts/Player/States/player_ground_attack.gd" id="7_8erm5"]
+[ext_resource type="Script" uid="uid://qx30vn4llfme" path="res://Scripts/Player/States/player_air_attack.gd" id="8_gymyn"]
+[ext_resource type="Script" uid="uid://dla2r8hncepfw" path="res://Scripts/Player/States/player_death.gd" id="10_gymyn"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3smsa"]
+radius = 13.0
+height = 26.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
 radius = 6.0
 height = 22.0
+
+[sub_resource type="Animation" id="Animation_tx1dd"]
+resource_name = "AirSword"
+length = 0.35
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [21, 22, 23, 24]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/Sword/HitBox:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="Animation" id="Animation_dw050"]
 resource_name = "Dead"
@@ -62,6 +102,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_sweqy"]
 resource_name = "Jump"
+length = 0.001
 step = 0.0333333
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -90,10 +131,39 @@ tracks/0/keys = {
 "update": 1,
 "values": [34]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/Sword/HitBox:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_x3wgy"]
+resource_name = "Stun"
+length = 0.3
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [36]
+}
 
 [sub_resource type="Animation" id="Animation_1jxqw"]
 resource_name = "Sword"
-length = 0.4
+length = 0.35
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -106,6 +176,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [17, 18, 19, 20]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/Sword/HitBox:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_hqtel"]
@@ -127,17 +209,24 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n7ghd"]
 _data = {
+&"AirSword": SubResource("Animation_tx1dd"),
 &"Dead": SubResource("Animation_dw050"),
 &"Fall": SubResource("Animation_2hs0m"),
 &"Idle": SubResource("Animation_i3pqv"),
 &"Jump": SubResource("Animation_sweqy"),
 &"RESET": SubResource("Animation_b26j0"),
+&"Stun": SubResource("Animation_x3wgy"),
 &"Sword": SubResource("Animation_1jxqw"),
 &"Walk": SubResource("Animation_hqtel")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x3wgy"]
+radius = 7.0
+height = 24.0
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 5
+collision_mask = 4
 script = ExtResource("1_cvnsp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -145,6 +234,19 @@ texture = ExtResource("2_6t5aa")
 hframes = 8
 vframes = 7
 frame = 34
+
+[node name="Sword" type="Node2D" parent="Sprite2D"]
+
+[node name="HitBox" parent="Sprite2D/Sword" node_paths=PackedStringArray("_player") instance=ExtResource("3_x3wgy")]
+z_index = 5
+position = Vector2(7, 9)
+collision_mask = 8
+monitoring = false
+_player = NodePath("../../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Sword/HitBox"]
+shape = SubResource("CapsuleShape2D_3smsa")
+debug_color = Color(0.995339, 0, 0.206971, 0.42)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 11)
@@ -156,8 +258,6 @@ libraries = {
 }
 autoplay = "Idle"
 
-[node name="Sword" type="Node" parent="."]
-
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("_entity", "initial_state")]
 script = ExtResource("3_6t5aa")
 _entity = NodePath("..")
@@ -166,3 +266,31 @@ initial_state = NodePath("PlayerMovement")
 [node name="PlayerMovement" type="Node" parent="StateMachine"]
 script = ExtResource("4_vgqql")
 metadata/_custom_type_script = "uid://beg3hdtlrba4s"
+
+[node name="PlayerAir" type="Node" parent="StateMachine"]
+script = ExtResource("6_tx1dd")
+metadata/_custom_type_script = "uid://6fa15jjnebuw"
+
+[node name="PlayerGroundAttack" type="Node" parent="StateMachine"]
+script = ExtResource("7_8erm5")
+metadata/_custom_type_script = "uid://57b07a6hp68c"
+
+[node name="PlayerAirAttack" type="Node" parent="StateMachine"]
+script = ExtResource("8_gymyn")
+metadata/_custom_type_script = "uid://qx30vn4llfme"
+
+[node name="PlayerStun" type="Node" parent="StateMachine"]
+script = ExtResource("6_3smsa")
+metadata/_custom_type_script = "uid://unk1a6hjmoot"
+
+[node name="PlayerDeath" type="Node" parent="StateMachine"]
+script = ExtResource("10_gymyn")
+metadata/_custom_type_script = "uid://dla2r8hncepfw"
+
+[node name="HurtBox" parent="." instance=ExtResource("5_fkybt")]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, 11)
+shape = SubResource("CapsuleShape2D_x3wgy")
+debug_color = Color(0.657092, 0.516198, 0, 0.42)

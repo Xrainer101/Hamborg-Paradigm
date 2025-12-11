@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://dt0aa8glls5oc"]
+
+[ext_resource type="PackedScene" uid="uid://bkpwvqywltah6" path="res://Scenes/platform.tscn" id="1_53o4y"]
+
+[node name="Boss_Level" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="Platform" parent="." instance=ExtResource("1_53o4y")]
+position = Vector2(0, 125)
+scale = Vector2(8, 6)
+
+[node name="Platform2" parent="." instance=ExtResource("1_53o4y")]
+position = Vector2(-220, 0)
+rotation = 1.5708
+scale = Vector2(5, 5)
+
+[node name="Platform3" parent="." instance=ExtResource("1_53o4y")]
+position = Vector2(220, 0)
+rotation = -1.5708
+scale = Vector2(5, 5)
