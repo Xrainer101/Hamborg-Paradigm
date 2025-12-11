@@ -1,12 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://de1peb5ddwpvc"]
+[gd_scene load_steps=5 format=3 uid="uid://de1peb5ddwpvc"]
 
+[ext_resource type="Script" uid="uid://jk5s6xrs67ib" path="res://Scripts/level.gd" id="1_mb2fk"]
 [ext_resource type="PackedScene" uid="uid://bkpwvqywltah6" path="res://Scenes/platform.tscn" id="1_tjgfl"]
 [ext_resource type="PackedScene" uid="uid://760vatymkaj2" path="res://Scenes/player/player_spawn.tscn" id="1_u4prk"]
+[ext_resource type="PackedScene" uid="uid://bfpvh28s5n7x1" path="res://Scenes/level_transition.tscn" id="2_q2mrg"]
 
 [node name="Level_2" type="Node2D"]
+script = ExtResource("1_mb2fk")
 
 [node name="PlayerSpawn" parent="." instance=ExtResource("1_u4prk")]
 position = Vector2(0, -5)
+
+[node name="LevelTransition" parent="." instance=ExtResource("2_q2mrg")]
+position = Vector2(0, -108)
+size = 1
+side = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)

@@ -17,6 +17,7 @@ signal _damaged( hit_box : HitBox )
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hurt_box.Damaged.connect( _take_damage )
+	LevelManager.level_loaded.connect(_stop_player)
 	$CollisionShape2D.disabled = false
 	pass # Replace with function body.
 
@@ -57,3 +58,6 @@ func make_invulnerable(_duration : float = 1.0) -> void:
 	invulnerable = false
 	hurt_box.monitoring = true
 	pass
+
+func _stop_player() -> void:
+	velocity = Vector2.ZERO

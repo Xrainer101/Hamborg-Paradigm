@@ -1,12 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://dt0aa8glls5oc"]
+[gd_scene load_steps=5 format=3 uid="uid://dt0aa8glls5oc"]
 
+[ext_resource type="Script" uid="uid://jk5s6xrs67ib" path="res://Scripts/level.gd" id="1_03ouh"]
 [ext_resource type="PackedScene" uid="uid://bkpwvqywltah6" path="res://Scenes/platform.tscn" id="1_53o4y"]
 [ext_resource type="PackedScene" uid="uid://760vatymkaj2" path="res://Scenes/player/player_spawn.tscn" id="1_jenbt"]
+[ext_resource type="PackedScene" uid="uid://bfpvh28s5n7x1" path="res://Scenes/level_transition.tscn" id="3_5tti6"]
 
 [node name="Boss_Level" type="Node2D"]
+script = ExtResource("1_03ouh")
 
 [node name="PlayerSpawn" parent="." instance=ExtResource("1_jenbt")]
 position = Vector2(-145, 53)
+
+[node name="LevelTransition" parent="." instance=ExtResource("3_5tti6")]
+position = Vector2(-157, -108)
+size = 1
+side = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)

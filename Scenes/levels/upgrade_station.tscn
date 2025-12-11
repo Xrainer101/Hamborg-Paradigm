@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://4v0xlocjmvwj"]
+
+[ext_resource type="PackedScene" uid="uid://bkpwvqywltah6" path="res://Scenes/platform.tscn" id="1_3m2w5"]
+[ext_resource type="Script" uid="uid://jk5s6xrs67ib" path="res://Scripts/level.gd" id="1_6jvq7"]
+[ext_resource type="PackedScene" uid="uid://760vatymkaj2" path="res://Scenes/player/player_spawn.tscn" id="2_fjv08"]
+[ext_resource type="PackedScene" uid="uid://bfpvh28s5n7x1" path="res://Scenes/level_transition.tscn" id="3_macvh"]
+
+[node name="UpgradeStation" type="Node2D"]
+script = ExtResource("1_6jvq7")
+
+[node name="PlayerSpawn" parent="." instance=ExtResource("2_fjv08")]
+position = Vector2(0, 54)
+
+[node name="LevelTransition" parent="." instance=ExtResource("3_macvh")]
+position = Vector2(0, -13)
+level = "uid://de1peb5ddwpvc"
+side = 3
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="Platform" parent="." instance=ExtResource("1_3m2w5")]
+position = Vector2(0, 125)
+scale = Vector2(8, 6)
+
+[node name="Platform2" parent="." instance=ExtResource("1_3m2w5")]
+position = Vector2(-220, 0)
+rotation = 1.5708
+scale = Vector2(5, 5)
+
+[node name="Platform3" parent="." instance=ExtResource("1_3m2w5")]
+position = Vector2(220, 0)
+rotation = -1.5708
+scale = Vector2(5, 5)
+
+[node name="SmallPlatform" parent="." instance=ExtResource("1_3m2w5")]
+position = Vector2(0, 28)
+scale = Vector2(2.28, 0.75)

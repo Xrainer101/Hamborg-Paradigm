@@ -17,8 +17,10 @@ config/icon="res://Assets/Sprites/icon.svg"
 
 [autoload]
 
+LevelManager="*res://Scripts/Globals/level_manager.gd"
 PlayerHud="*res://Scenes/globals/player_hud.tscn"
 PlayerManager="*res://Scripts/Globals/player_manager.gd"
+SceneTransition="*res://Scenes/globals/scene_transition.tscn"
 
 [global_group]
 
