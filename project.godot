@@ -17,7 +17,8 @@ config/icon="res://Assets/Sprites/icon.svg"
 
 [autoload]
 
-PlayerHud="*res://Scenes/player_hud.tscn"
+PlayerHud="*res://Scenes/globals/player_hud.tscn"
+PlayerManager="*res://Scripts/Globals/player_manager.gd"
 
 [global_group]
 

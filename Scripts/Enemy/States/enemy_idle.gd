@@ -8,7 +8,7 @@ var entity : CharacterBody2D
 var move_direction : int
 var wander_time : float
 
-var player : CharacterBody2D
+var player : Player
 
 #What happens when we initialize this state?
 func Init():
@@ -17,7 +17,7 @@ func Init():
 	pass
 
 func Enter():
-	player = get_tree().get_first_node_in_group("Player")
+	player = PlayerManager.player
 	randomize_wander()
 
 func Update(delta: float):

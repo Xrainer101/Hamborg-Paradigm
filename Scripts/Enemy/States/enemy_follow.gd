@@ -3,7 +3,7 @@ class_name EnemyFollow extends State
 @export var chase_speed : int = 20.0
 @export var knockback_speed : float = 20.0
 var entity : CharacterBody2D
-var player : CharacterBody2D
+var player : Player
 
 func Init():
 	entity._damaged.connect(enemy_damaged)
@@ -11,7 +11,8 @@ func Init():
 	pass
 
 func Enter():
-	player = get_tree().get_first_node_in_group("Player")
+	player = PlayerManager.player
+	pass
 
 func Update(delta : float):
 	if entity.velocity.x == 0:

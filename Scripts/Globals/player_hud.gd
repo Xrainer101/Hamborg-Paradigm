@@ -43,7 +43,7 @@ func load_game() -> void:
 func fade_to_black() -> bool:
 	animation_player.play("fade_to_black")
 	await animation_player.animation_finished
-	get_tree().get_first_node_in_group("Player").revive_player()
+	PlayerManager.player.revive_player()
 	return true
 
 func play_audio (_a : AudioStream ) -> void:
