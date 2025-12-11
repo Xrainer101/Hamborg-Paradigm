@@ -3,6 +3,7 @@ extends CanvasLayer
 @export var button_focus_audio : AudioStream = preload("res://Assets/SFX/menu_focus.wav")
 @export var button_select_audio : AudioStream = preload("res://Assets/SFX/menu_select.wav")
 
+@onready var health_bar: TextureProgressBar = $Control/HealthBar
 @onready var game_over: Control = $Control/GameOver
 @onready var retry_button: Button = $Control/GameOver/VBoxContainer/RetryButton
 @onready var animation_player: AnimationPlayer = $Control/GameOver/AnimationPlayer
@@ -18,6 +19,9 @@ func _ready() -> void:
 	
 	LevelManager.level_load_started.connect( hide_game_over_screen )
 	pass # Replace with function body.
+
+func update_hp(hp : int, max_hp : int):
+	health_bar.update_hp(hp, max_hp)
 
 func show_game_over_screen() -> void:
 	game_over.visible = true

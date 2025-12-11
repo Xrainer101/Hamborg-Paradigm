@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://r1qmgbc783fj"]
+[gd_scene load_steps=9 format=3 uid="uid://r1qmgbc783fj"]
 
 [ext_resource type="Script" uid="uid://bkoilinttxnkm" path="res://Scripts/Globals/player_hud.gd" id="1_iori6"]
 [ext_resource type="FontFile" uid="uid://ikoqsaf8shh8" path="res://Assets/PixelOperator8-Bold.ttf" id="1_pk5j4"]
+[ext_resource type="PackedScene" uid="uid://ca3cum6upsggi" path="res://Scenes/components/health_bar.tscn" id="3_76orx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_iori6"]
 font = ExtResource("1_pk5j4")
@@ -322,5 +323,15 @@ color = Color(0, 0, 0, 0)
 libraries = {
 &"": SubResource("AnimationLibrary_54pr6")
 }
+
+[node name="HealthBar" parent="Control" instance=ExtResource("3_76orx")]
+layout_mode = 1
+offset_left = 17.0
+offset_top = 587.0
+offset_right = 81.0
+offset_bottom = 597.0
+scale = Vector2(5, 5)
+max_value = 8.0
+value = 8.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

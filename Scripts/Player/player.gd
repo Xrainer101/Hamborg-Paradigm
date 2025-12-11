@@ -5,6 +5,8 @@ var hp : int = max_hp
 var invulnerable : bool = false
 var direction : float
 
+var upgrades : Array[int]
+
 @export var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var anim: AnimationPlayer = $AnimationPlayer
@@ -19,6 +21,7 @@ func _ready() -> void:
 	hurt_box.Damaged.connect( _take_damage )
 	LevelManager.level_loaded.connect(_stop_player)
 	$CollisionShape2D.disabled = false
+	update_hp(0)
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -42,11 +45,12 @@ func _take_damage(hit_box : HitBox) -> void:
 	if invulnerable == true:
 		return
 	if hp > 0:
-		hp -= hit_box.damage
+		update_hp(-hit_box.damage)
 		_damaged.emit( hit_box )
 
 func update_hp(delta : int) -> void:
 	hp = clampi(hp + delta, 0, max_hp)
+	PlayerHud.update_hp(hp, max_hp)
 	pass
 
 func make_invulnerable(_duration : float = 1.0) -> void:
