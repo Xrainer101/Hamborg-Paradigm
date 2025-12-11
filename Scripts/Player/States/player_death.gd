@@ -25,7 +25,7 @@ func Enter():
 	#entity.make_invulnerable(invulnerable_duration)
 	
 	entity._update_animation("Dead")
-	
+	PlayerHud.show_game_over_screen()
 	pass
 
 func Exit():
