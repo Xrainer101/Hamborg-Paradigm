@@ -14,7 +14,7 @@ func Init():
 func Physics_Update(delta: float):
 	#Make sure entity is on the ground
 	if not entity.is_on_floor():
-		entity.velocity.y += entity.gravity * delta
+		Transitioned.emit(self, "PlayerAir")
 	
 	if entity.direction > 0:
 		entity.sprite.scale.x = 1
@@ -36,7 +36,7 @@ func Handle_Input(_event : InputEvent):
 	if Input.is_action_just_pressed("jump") and entity.is_on_floor():
 		#print("Enter jump state")
 		entity.velocity.y = jump_velocity
-		Transitioned.emit(self, "PlayerAir")
+		# Transitioned.emit(self, "PlayerAir")
 	#Handle attack
 	elif Input.is_action_pressed("attack"):
 		#print("Player attacked")

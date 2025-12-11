@@ -61,3 +61,6 @@ func make_invulnerable(_duration : float = 1.0) -> void:
 
 func _stop_player() -> void:
 	velocity = Vector2.ZERO
+
+func reset_player() -> void:
+	update_hp(99)
