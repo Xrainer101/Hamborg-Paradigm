@@ -23,10 +23,10 @@ func Physics_Update(delta : float):
 	var distance : Vector2 = player.global_position - entity.global_position
 	var direction : float = distance.normalized().x
 	
-	if distance.length() > 25:
-		entity.velocity.x = direction * chase_speed
-	else:
-		entity.velocity.x = 0.0
+	#if distance.length() > 25:
+	entity.velocity.x = direction * chase_speed
+	#else:
+		#entity.velocity.x = 0.0
 	
 	if distance.length() > 100:
 		Transitioned.emit(self, "EnemyIdle")

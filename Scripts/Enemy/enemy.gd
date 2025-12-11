@@ -34,13 +34,13 @@ func _update_animation(anim_name : String) -> void:
 	anim.play(anim_name)
 
 func _take_damage(hit_box : HitBox) -> void:
-	print("Enemy's taking damage")
+	# print("Enemy's taking damage")
 	if invulnerable == true:
-		print("Enemy's invulnerable")
+		# print("Enemy's invulnerable")
 		return
 	hp -= hit_box.damage
 	if hp > 0:
-		print("Enemy's emitting _damaged")
+		# print("Enemy's emitting _damaged")
 		_damaged.emit( hit_box )
 	else:
 		_death.emit( hit_box)

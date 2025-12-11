@@ -35,7 +35,7 @@ func Update(delta: float):
 		Transitioned.emit(self, "PlayerMovement")
 
 func Physics_Update(delta: float):
-	entity.velocity.x -= entity.velocity.x * decelerate_speed * delta
+	entity.velocity.x -= (entity.velocity.x * decelerate_speed * delta) - (entity.direction * 5)
 
 func player_damaged( hit_box : HitBox ) -> void:
 	damage_position = hit_box.global_position
@@ -43,3 +43,5 @@ func player_damaged( hit_box : HitBox ) -> void:
 
 func _on_animation_finished(_a : String) -> void:
 	_animation_finished = true
+	if entity.hp <= 0:
+		Transitioned.emit(self, "PlayerDeath")

@@ -7,13 +7,28 @@
 [node name="Level_1" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_yffda")]
+position = Vector2(0, 51)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
 
 [node name="Platform" parent="." instance=ExtResource("2_cru1l")]
-position = Vector2(0, 33)
-scale = Vector2(6.6, 1)
+position = Vector2(0, 125)
+scale = Vector2(8, 6)
+
+[node name="Platform2" parent="." instance=ExtResource("2_cru1l")]
+position = Vector2(-220, 0)
+rotation = 1.5708
+scale = Vector2(5, 5)
+
+[node name="Platform3" parent="." instance=ExtResource("2_cru1l")]
+position = Vector2(220, 0)
+rotation = -1.5708
+scale = Vector2(5, 5)
+
+[node name="SmallPlatform" parent="." instance=ExtResource("2_cru1l")]
+position = Vector2(0, 28)
+scale = Vector2(2.28, 0.75)
 
 [node name="Enemy" parent="." instance=ExtResource("3_0lml3")]
-position = Vector2(71, 17)
+position = Vector2(71, 66)

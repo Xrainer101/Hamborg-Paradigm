@@ -12,11 +12,12 @@ var direction : float
 @onready var sprite: Sprite2D = $Sprite2D
 
 signal _damaged( hit_box : HitBox )
-signal _death( hit_box : HitBox )
+#signal _death( hit_box : HitBox )
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hurt_box.Damaged.connect( _take_damage )
+	$CollisionShape2D.disabled = false
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -27,17 +28,18 @@ func _process(delta: float) -> void:
 func _physics_process(delta) -> void:
 	move_and_slide()
 
+func _unhandled_input(event: InputEvent) -> void:
+	pass
+
 func _update_animation(anim_name : String) -> void:
 	anim.play(anim_name)
 
 func _take_damage(hit_box : HitBox) -> void:
 	if invulnerable == true:
 		return
-	hp -= hit_box.damage
 	if hp > 0:
+		hp -= hit_box.damage
 		_damaged.emit( hit_box )
-	else:
-		_death.emit( hit_box)
 
 func update_hp(delta : int) -> void:
 	hp = clampi(hp + delta, 0, max_hp)

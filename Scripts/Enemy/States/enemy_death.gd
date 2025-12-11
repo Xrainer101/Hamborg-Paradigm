@@ -28,13 +28,10 @@ func Enter():
 	pass
 
 func Exit():
-	entity.invulnerable = false
-	entity.anim.animation_finished.disconnect (_on_animation_finished )
 	pass
 
 func Update(delta : float):
-	if _animation_finished == true:
-		Transitioned.emit(self, "EnemyFollow")
+	pass
 
 func Physics_Update(delta : float):
 	entity.velocity.x -= entity.velocity.x * decelerate_speed * delta
