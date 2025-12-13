@@ -1,8 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://7rt7sdt8ch2n"]
+[gd_scene load_steps=7 format=3 uid="uid://7rt7sdt8ch2n"]
 
 [ext_resource type="PackedScene" uid="uid://bkpwvqywltah6" path="res://Scenes/platform.tscn" id="1_4rusa"]
+[ext_resource type="Script" uid="uid://jk5s6xrs67ib" path="res://Scripts/level.gd" id="1_jw3cj"]
+[ext_resource type="PackedScene" uid="uid://760vatymkaj2" path="res://Scenes/player/player_spawn.tscn" id="1_n12qs"]
+[ext_resource type="PackedScene" uid="uid://bfpvh28s5n7x1" path="res://Scenes/level_transition.tscn" id="3_f852d"]
+[ext_resource type="PackedScene" uid="uid://wgvyhvtv7e0x" path="res://Scenes/levels/enemy_checker.tscn" id="5_x6hu1"]
+[ext_resource type="PackedScene" uid="uid://duxdwbh7bl88r" path="res://Scenes/enemy.tscn" id="6_863cj"]
 
 [node name="Level_3" type="Node2D"]
+script = ExtResource("1_jw3cj")
+
+[node name="PlayerSpawn" parent="." instance=ExtResource("1_n12qs")]
+position = Vector2(0, 54)
+
+[node name="LevelTransition" parent="." instance=ExtResource("3_f852d")]
+position = Vector2(0, -108)
+size = 1
+side = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
@@ -28,3 +42,8 @@ scale = Vector2(5, 5)
 position = Vector2(220, 0)
 rotation = -1.5708
 scale = Vector2(5, 5)
+
+[node name="EnemyChecker" parent="." instance=ExtResource("5_x6hu1")]
+
+[node name="Enemy" parent="EnemyChecker" instance=ExtResource("6_863cj")]
+position = Vector2(71, 66)

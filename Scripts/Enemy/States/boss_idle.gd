@@ -1,4 +1,4 @@
-class_name EnemyIdle extends State
+class_name BossIdle extends State
 
 @export var max_move_speed : int = 10
 # @export var knockback_speed : float = 30.0
@@ -8,7 +8,7 @@ var entity : CharacterBody2D
 var move_direction : int
 var wander_time : float
 
-var player : Player
+# var player : Player
 
 #What happens when we initialize this state?
 func Init():
@@ -17,14 +17,14 @@ func Init():
 	pass
 
 func Enter():
-	player = PlayerManager.player
+	# player = PlayerManager.player
 	randomize_wander()
 
 func Update(delta: float):
 	if wander_time > 0:
 		wander_time -= delta
 	else:
-		randomize_wander()
+		Transitioned.emit(self, "EnemyFollow")
 	
 	if entity.velocity.x == 0:
 		entity._update_animation("Idle")
@@ -34,10 +34,6 @@ func Update(delta: float):
 func Physics_Update(delta: float):
 	if entity:
 		entity.velocity.x = move_direction * move_speed
-	
-	var distance_to_player : Vector2 = player.global_position - entity.global_position
-	if distance_to_player.length() < 80:
-		Transitioned.emit(self, "EnemyFollow")
 
 func randomize_wander():
 	move_direction = randi_range(-1, 1)

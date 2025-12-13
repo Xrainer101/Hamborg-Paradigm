@@ -1,9 +1,12 @@
-class_name EnemyFollow extends State
+class_name BossAttack extends State
 
-@export var chase_speed : int = 20.0
+@export var chase_speed : int = 100.0
 # @export var knockback_speed : float = 20.0
 var entity : CharacterBody2D
 var player : Player
+
+var distance : Vector2
+var direction : float = distance.normalized().x
 
 func Init():
 	# entity._damaged.connect(enemy_damaged)
@@ -12,6 +15,8 @@ func Init():
 
 func Enter():
 	player = PlayerManager.player
+	distance = player.global_position - entity.global_position
+	direction = distance.normalized().x
 	pass
 
 func Update(delta : float):
@@ -21,15 +26,13 @@ func Update(delta : float):
 		entity._update_animation("Walk")
 
 func Physics_Update(delta : float):
-	var distance : Vector2 = player.global_position - entity.global_position
-	var direction : float = distance.normalized().x
 	
 	#if distance.length() > 25:
 	entity.velocity.x = direction * chase_speed
 	#else:
 		#entity.velocity.x = 0.0
 	
-	if distance.length() > 100:
+	if entity.velocity.x == 0.0:
 		Transitioned.emit(self, "EnemyIdle")
 
 # func enemy_damaged( hit_box : HitBox ) -> void:
