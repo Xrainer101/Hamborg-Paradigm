@@ -3,6 +3,7 @@ class_name Player extends CharacterBody2D
 @export var max_hp : int = 8
 var hp : int = max_hp
 var invulnerable : bool = false
+var super_armor : bool = false
 var direction : float
 
 var upgrades : Array[int]

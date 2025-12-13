@@ -40,8 +40,9 @@ func Physics_Update(delta : float):
 	entity.velocity.x -= entity.velocity.x * decelerate_speed * delta
 
 func enemy_damaged( hit_box : HitBox ) -> void:
-	damage_position = hit_box.global_position
-	Transitioned.emit(self, "EnemyStun")
+	if entity.super_armor == false:
+		damage_position = hit_box.global_position
+		Transitioned.emit(self, "EnemyStun")
 
 func _on_animation_finished(_a : String) -> void:
 	_animation_finished = true

@@ -4,6 +4,7 @@ class_name Enemy extends CharacterBody2D
 @export var max_hp: int = 3
 var hp : int = max_hp
 var invulnerable : bool = false
+var super_armor : bool = false
 
 @onready var anim: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite2D

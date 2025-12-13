@@ -1,12 +1,12 @@
 class_name EnemyFollow extends State
 
 @export var chase_speed : int = 20.0
-@export var knockback_speed : float = 20.0
+# @export var knockback_speed : float = 20.0
 var entity : CharacterBody2D
 var player : Player
 
 func Init():
-	entity._damaged.connect(enemy_damaged)
+	# entity._damaged.connect(enemy_damaged)
 	# entity.death.connect(_death)
 	pass
 
@@ -32,9 +32,9 @@ func Physics_Update(delta : float):
 	if distance.length() > 100:
 		Transitioned.emit(self, "EnemyIdle")
 
-func enemy_damaged( hit_box : HitBox ) -> void:
-	print("Changing from chase to stun")
-	var direction : float = entity.global_position.direction_to(hit_box.global_position).x
-	entity.velocity.y = 0.0
-	entity.velocity.x = direction * -knockback_speed
-	Transitioned.emit(self, "EnemyStun")
+# func enemy_damaged( hit_box : HitBox ) -> void:
+	# print("Changing from chase to stun")
+	# var direction : float = entity.global_position.direction_to(hit_box.global_position).x
+	# entity.velocity.y = 0.0
+	# entity.velocity.x = direction * -knockback_speed
+	# Transitioned.emit(self, "EnemyStun")

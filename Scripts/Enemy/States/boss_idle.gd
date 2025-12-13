@@ -1,7 +1,7 @@
 class_name BossIdle extends State
 
 @export var max_move_speed : int = 10
-@export var knockback_speed : float = 30.0
+# @export var knockback_speed : float = 30.0
 var move_speed : int = max_move_speed
 var entity : CharacterBody2D
 
@@ -12,7 +12,7 @@ var wander_time : float
 
 #What happens when we initialize this state?
 func Init():
-	entity._damaged.connect(enemy_damaged)
+	# entity._damaged.connect(enemy_damaged)
 	# entity.death.connect(_death)
 	pass
 
@@ -40,8 +40,8 @@ func randomize_wander():
 	wander_time = randf_range(1, 3)
 	move_speed = randi_range(0, max_move_speed)
 
-func enemy_damaged( hit_box : HitBox ) -> void:
-	var direction : float = entity.global_position.direction_to(hit_box.global_position).x
-	entity.velocity.y = 0.0
-	entity.velocity.x = direction * -knockback_speed
-	Transitioned.emit(self, "EnemyStun")
+# func enemy_damaged( hit_box : HitBox ) -> void:
+	# var direction : float = entity.global_position.direction_to(hit_box.global_position).x
+	# entity.velocity.y = 0.0
+	# entity.velocity.x = direction * -knockback_speed
+	# Transitioned.emit(self, "EnemyStun")
