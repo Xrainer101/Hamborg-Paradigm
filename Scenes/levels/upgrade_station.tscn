@@ -13,7 +13,6 @@ position = Vector2(0, 54)
 
 [node name="LevelTransition" parent="." instance=ExtResource("3_macvh")]
 position = Vector2(0, -13)
-level = "uid://de1peb5ddwpvc"
 side = 3
 
 [node name="Camera2D" type="Camera2D" parent="."]

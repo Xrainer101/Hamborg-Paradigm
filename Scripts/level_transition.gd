@@ -39,7 +39,19 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func _player_entered( _p : Node2D ) -> void:
-	LevelManager.load_new_level( level, target_transition_area, get_offset() )
+	if(level == null):
+		match(LevelManager.curr_level):
+			0:
+				LevelManager.load_new_level(LevelManager.LEVEL_2, target_transition_area, get_offset())
+			1:
+				LevelManager.load_new_level(LevelManager.LEVEL_3, target_transition_area, get_offset())
+			2:
+				LevelManager.load_new_level(LevelManager.BOSS_LEVEL, target_transition_area, get_offset())
+			_:
+				print("You went beyond the level numbers.")
+		LevelManager.curr_level += 1
+	else:
+		LevelManager.load_new_level(level, target_transition_area, get_offset())
 	pass
 
 func _place_player() -> void:
