@@ -2,6 +2,8 @@ class_name BossIdle extends State
 
 @export var max_move_speed : int = 10
 # @export var knockback_speed : float = 30.0
+@onready var wall_ray_cast: RayCast2D = $"../../Sprite2D/WallRayCast2D"
+
 var move_speed : int = max_move_speed
 var entity : CharacterBody2D
 
@@ -24,7 +26,7 @@ func Update(delta: float):
 	if wander_time > 0:
 		wander_time -= delta
 	else:
-		Transitioned.emit(self, "EnemyFollow")
+		Transitioned.emit(self, "BossCharge")
 	
 	if entity.velocity.x == 0:
 		entity._update_animation("Idle")
@@ -37,6 +39,8 @@ func Physics_Update(delta: float):
 
 func randomize_wander():
 	move_direction = randi_range(-1, 1)
+	if(wall_ray_cast.is_colliding()):
+		move_direction *= -1
 	wander_time = randf_range(1, 3)
 	move_speed = randi_range(0, max_move_speed)
 

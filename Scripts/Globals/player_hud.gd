@@ -20,8 +20,8 @@ func _ready() -> void:
 	LevelManager.level_load_started.connect( hide_game_over_screen )
 	pass # Replace with function body.
 
-func update_hp(hp : int, max_hp : int):
-	health_bar.update_hp(hp, max_hp)
+# func update_hp(hp : int, max_hp : int):
+	# health_bar.update_hp(hp, max_hp)
 
 func show_game_over_screen() -> void:
 	game_over.visible = true
