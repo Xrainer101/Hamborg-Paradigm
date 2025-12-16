@@ -7,6 +7,7 @@ var invulnerable : bool = false
 var super_armor : bool = false
 
 @onready var anim: AnimationPlayer = $AnimationPlayer
+@onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var hurt_box: HurtBox = $HurtBox
 

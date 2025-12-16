@@ -1,8 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://dirse4a05jkpp"]
+[gd_scene load_steps=21 format=3 uid="uid://dirse4a05jkpp"]
 
 [ext_resource type="Script" uid="uid://di5kh88ql0558" path="res://Scripts/Enemy/enemy.gd" id="1_odcco"]
 [ext_resource type="Texture2D" uid="uid://c46g1j282436i" path="res://Assets/metroid_asset_1_2/Sprites/Enemies/enemy_rpg.png" id="2_q76ad"]
+[ext_resource type="AudioStream" uid="uid://cdsvi3ysvke7w" path="res://Assets/SFX/hit_00.wav" id="3_lel8w"]
 [ext_resource type="Script" uid="uid://c1dcin82errem" path="res://Scripts/state_machine.gd" id="3_nuv35"]
+[ext_resource type="AudioStream" uid="uid://dipuh1jrcys1y" path="res://Assets/SFX/hit_01.wav" id="4_6xjeg"]
 [ext_resource type="Script" uid="uid://bvwwnqfv0scnw" path="res://Scripts/Enemy/States/boss_idle.gd" id="4_odcco"]
 [ext_resource type="Script" uid="uid://dl3ku35e1ujnq" path="res://Scripts/Enemy/States/boss_charge.gd" id="5_odcco"]
 [ext_resource type="Script" uid="uid://pd32i77j1sr1" path="res://Scripts/Enemy/States/enemy_stun.gd" id="6_r0blv"]
@@ -15,8 +17,8 @@ radius = 6.0
 
 [sub_resource type="Animation" id="Animation_8uf12"]
 resource_name = "Death"
-length = 0.5
-step = 0.1
+length = 0.6
+step = 0.075
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -24,11 +26,26 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0769231, 0.153846, 0.230769, 0.307692, 0.384615, 0.461538, 0.538462),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [2, 7, 12, 16]
+"values": [2, 7, 12, 16, 2, 7, 12, 16]
 }
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_lel8w")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
 
 [sub_resource type="Animation" id="Animation_t2m80"]
 resource_name = "Idle"
@@ -79,6 +96,21 @@ tracks/0/keys = {
 "update": 1,
 "values": [7]
 }
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_6xjeg")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
 
 [sub_resource type="Animation" id="Animation_7p0xe"]
 resource_name = "Walk"
@@ -153,6 +185,7 @@ metadata/_custom_type_script = "uid://dl3ku35e1ujnq"
 
 [node name="EnemyStun" type="Node" parent="StateMachine"]
 script = ExtResource("6_r0blv")
+hurt_sound = ExtResource("4_6xjeg")
 metadata/_custom_type_script = "uid://pd32i77j1sr1"
 
 [node name="EnemyDeath" type="Node" parent="StateMachine"]
@@ -170,3 +203,6 @@ debug_color = Color(0.999479, 0, 0.111766, 0.42)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("CircleShape2D_po0sg")
 debug_color = Color(0.661496, 0.513883, 0, 0.42)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+max_polyphony = 4

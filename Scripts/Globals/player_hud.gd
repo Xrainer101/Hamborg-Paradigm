@@ -7,11 +7,13 @@ extends CanvasLayer
 
 @onready var game_over: Control = $Control/GameOver
 @onready var retry_button: Button = $Control/GameOver/VBoxContainer/RetryButton
-@onready var game_over_animation_player: AnimationPlayer = $Control/GameOver/AnimationPlayer
 
 @onready var win_screen: Control = $Control/WinScreen
 @onready var replay_button: Button = $Control/WinScreen/VBoxContainer/ReplayButton
-@onready var win_animation_player: AnimationPlayer = $Control/WinScreen/AnimationPlayer
+
+@onready var black_rect: ColorRect = $Control/FadeToBlack
+
+@onready var animation_player: AnimationPlayer = $Control/AnimationPlayer
 
 @onready var audio: AudioStreamPlayer = $AudioStreamPlayer
 
@@ -20,6 +22,7 @@ func _ready() -> void:
 	
 	hide_game_over_screen()
 	hide_win_screen()
+	hide_fade_to_black()
 	
 	retry_button.focus_entered.connect( play_audio.bind( button_focus_audio ) )
 	retry_button.pressed.connect( load_game )
@@ -29,6 +32,7 @@ func _ready() -> void:
 	
 	LevelManager.level_load_started.connect( hide_game_over_screen )
 	LevelManager.level_load_started.connect( hide_win_screen )
+	LevelManager.level_load_started.connect( hide_fade_to_black )
 	
 	pass # Replace with function body.
 
@@ -39,8 +43,8 @@ func show_game_over_screen() -> void:
 	game_over.visible = true
 	game_over.mouse_filter = Control.MOUSE_FILTER_STOP
 	
-	game_over_animation_player.play("show_game_over")
-	await game_over_animation_player.animation_finished
+	animation_player.play("show_game_over")
+	await animation_player.animation_finished
 	
 	retry_button.grab_focus()
 
@@ -49,13 +53,15 @@ func hide_game_over_screen() -> void:
 	game_over.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	game_over.modulate = Color(1,1,1,0)
 
+func hide_fade_to_black() -> void:
+	black_rect.visible = false
 
 func show_win_screen() -> void:
 	win_screen.visible = true
 	win_screen.mouse_filter = Control.MOUSE_FILTER_STOP
 	
-	win_animation_player.play("show_win")
-	await win_animation_player.animation_finished
+	animation_player.play("show_win_screen")
+	await animation_player.animation_finished
 	
 	replay_button.grab_focus()
 
@@ -69,14 +75,14 @@ func load_game() -> void:
 	play_audio( button_select_audio )
 	await fade_to_black()
 	PlayerManager.player.reset_player()
+	health_bar.entity = PlayerManager.player
 	LevelManager.load_new_level("res://Scenes/levels/level_1.tscn", "", Vector2.ZERO)
 	LevelManager.curr_level = 0
 
 func fade_to_black() -> bool:
-	game_over_animation_player.play("fade_to_black")
-	win_animation_player.play("fade_to_black")
-	await game_over_animation_player.animation_finished
-	await win_animation_player.animation_finished
+	black_rect.visible = true
+	animation_player.play("fade_to_black")
+	await animation_player.animation_finished
 	PlayerManager.player.reset_player()
 	return true
 
