@@ -11,6 +11,8 @@ var upgrades : Array[int]
 @export var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var anim: AnimationPlayer = $AnimationPlayer
+@onready var audio: AudioStreamPlayer2D = $Audio/AudioStreamPlayer2D
+@onready var attack_audio: AudioStreamPlayer2D = $Audio/AttackStreamPlayer2D
 @onready var hurt_box: HurtBox = $HurtBox
 @onready var sprite: Sprite2D = $Sprite2D
 
@@ -22,7 +24,6 @@ func _ready() -> void:
 	hurt_box.Damaged.connect( _take_damage )
 	LevelManager.level_loaded.connect(_stop_player)
 	$CollisionShape2D.disabled = false
-	update_hp(0)
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -51,7 +52,7 @@ func _take_damage(hit_box : HitBox) -> void:
 
 func update_hp(delta : int) -> void:
 	hp = clampi(hp + delta, 0, max_hp)
-	PlayerHud.update_hp(hp, max_hp)
+	# PlayerHud.update_hp(hp, max_hp)
 	pass
 
 func make_invulnerable(_duration : float = 1.0) -> void:
@@ -68,4 +69,6 @@ func _stop_player() -> void:
 	velocity = Vector2.ZERO
 
 func reset_player() -> void:
-	update_hp(99)
+	PlayerManager.player_spawned = false
+	PlayerManager.add_player_instance()
+	queue_free()

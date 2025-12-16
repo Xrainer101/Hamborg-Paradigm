@@ -1,8 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://duxdwbh7bl88r"]
+[gd_scene load_steps=21 format=3 uid="uid://duxdwbh7bl88r"]
 
 [ext_resource type="Script" uid="uid://di5kh88ql0558" path="res://Scripts/Enemy/enemy.gd" id="1_afpow"]
 [ext_resource type="Texture2D" uid="uid://c46g1j282436i" path="res://Assets/metroid_asset_1_2/Sprites/Enemies/enemy_rpg.png" id="2_287tu"]
 [ext_resource type="Script" uid="uid://c1dcin82errem" path="res://Scripts/state_machine.gd" id="3_0830c"]
+[ext_resource type="AudioStream" uid="uid://cdsvi3ysvke7w" path="res://Assets/SFX/hit_00.wav" id="3_haro7"]
+[ext_resource type="AudioStream" uid="uid://dipuh1jrcys1y" path="res://Assets/SFX/hit_01.wav" id="4_56vhr"]
 [ext_resource type="Script" uid="uid://dg1y348uo3ceg" path="res://Scripts/Enemy/States/enemy_idle.gd" id="4_287tu"]
 [ext_resource type="Script" uid="uid://bneq13gh16dxi" path="res://Scripts/Enemy/States/enemy_follow.gd" id="5_0830c"]
 [ext_resource type="PackedScene" uid="uid://b4trvg040e0k7" path="res://Scenes/components/hit_box.tscn" id="6_1dp5w"]
@@ -15,8 +17,8 @@ radius = 6.0
 
 [sub_resource type="Animation" id="Animation_8uf12"]
 resource_name = "Death"
-length = 0.5
-step = 0.1
+length = 0.6
+step = 0.075
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -24,11 +26,26 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0769231, 0.153846, 0.230769, 0.307692, 0.384615, 0.461538, 0.538462),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [2, 7, 12, 16]
+"values": [2, 7, 12, 16, 2, 7, 12, 16]
 }
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_haro7")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
 
 [sub_resource type="Animation" id="Animation_t2m80"]
 resource_name = "Idle"
@@ -122,6 +139,10 @@ hframes = 5
 vframes = 4
 frame = 1
 
+[node name="RayCast2D" type="RayCast2D" parent="Sprite2D"]
+target_position = Vector2(8, 0)
+collision_mask = 4
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_kjpuc")
@@ -147,6 +168,7 @@ metadata/_custom_type_script = "uid://bneq13gh16dxi"
 
 [node name="EnemyStun" type="Node" parent="StateMachine"]
 script = ExtResource("6_auwsv")
+hurt_sound = ExtResource("4_56vhr")
 metadata/_custom_type_script = "uid://pd32i77j1sr1"
 
 [node name="EnemyDeath" type="Node" parent="StateMachine"]
@@ -164,3 +186,6 @@ debug_color = Color(0.999479, 0, 0.111766, 0.42)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("CircleShape2D_po0sg")
 debug_color = Color(0.661496, 0.513883, 0, 0.42)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+max_polyphony = 4

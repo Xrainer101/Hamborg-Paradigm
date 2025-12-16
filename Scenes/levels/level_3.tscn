@@ -14,7 +14,7 @@ script = ExtResource("1_jw3cj")
 position = Vector2(0, 54)
 
 [node name="LevelTransition" parent="." instance=ExtResource("3_f852d")]
-position = Vector2(0, -108)
+position = Vector2(0, -126)
 size = 1
 side = 2
 
@@ -47,3 +47,9 @@ scale = Vector2(5, 5)
 
 [node name="Enemy" parent="EnemyChecker" instance=ExtResource("6_863cj")]
 position = Vector2(71, 66)
+
+[node name="Enemy2" parent="EnemyChecker" instance=ExtResource("6_863cj")]
+position = Vector2(115, 7)
+
+[node name="Enemy3" parent="EnemyChecker" instance=ExtResource("6_863cj")]
+position = Vector2(-121, 7)

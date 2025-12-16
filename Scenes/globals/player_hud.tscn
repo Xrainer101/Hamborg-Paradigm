@@ -1,10 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://r1qmgbc783fj"]
+[gd_scene load_steps=13 format=3 uid="uid://r1qmgbc783fj"]
 
 [ext_resource type="Script" uid="uid://bkoilinttxnkm" path="res://Scripts/Globals/player_hud.gd" id="1_iori6"]
 [ext_resource type="FontFile" uid="uid://ikoqsaf8shh8" path="res://Assets/PixelOperator8-Bold.ttf" id="1_pk5j4"]
 [ext_resource type="PackedScene" uid="uid://ca3cum6upsggi" path="res://Scenes/components/health_bar.tscn" id="3_76orx"]
+[ext_resource type="AudioStream" uid="uid://edeqmbxl7eu8" path="res://Assets/SFX/GameOver.wav" id="4_rdp1g"]
+[ext_resource type="AudioStream" uid="uid://dsiib4e5f55wv" path="res://Assets/SFX/LevelUp3.wav" id="5_jakp6"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_iori6"]
+[sub_resource type="LabelSettings" id="LabelSettings_76orx"]
+font = ExtResource("1_pk5j4")
+font_size = 80
+
+[sub_resource type="LabelSettings" id="LabelSettings_rdp1g"]
 font = ExtResource("1_pk5j4")
 font_size = 80
 
@@ -13,7 +19,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("FadeToBack:color")
+tracks/0/path = NodePath("../FadeToBlack:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -82,6 +88,66 @@ tracks/5/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../WinScreen:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../WinScreen/Label:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../WinScreen/Label:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(321, 262)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../WinScreen/VBoxContainer:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(480, 356)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("../WinScreen/VBoxContainer:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_pk5j4"]
 resource_name = "fade_to_black"
@@ -89,7 +155,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("FadeToBack:color")
+tracks/0/path = NodePath("../FadeToBlack:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -166,7 +232,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("FadeToBack:color")
+tracks/0/path = NodePath("../FadeToBlack:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -235,15 +301,124 @@ tracks/5/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
+tracks/6/type = "audio"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../../AudioStreamPlayer")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_rdp1g")
+}],
+"times": PackedFloat32Array(0.6)
+}
+tracks/6/use_blend = true
+
+[sub_resource type="Animation" id="Animation_76orx"]
+resource_name = "show_win_screen"
+length = 4.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../FadeToBlack:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../WinScreen:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../WinScreen/Label:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(3, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../WinScreen/Label:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(3, 4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(321, 262), Vector2(321, 238)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../WinScreen/VBoxContainer:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(3, 4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(480, 356), Vector2(480, 376)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../WinScreen/VBoxContainer:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(3, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/6/type = "audio"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../../AudioStreamPlayer")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("5_jakp6")
+}],
+"times": PackedFloat32Array(1.1)
+}
+tracks/6/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_54pr6"]
 _data = {
 &"RESET": SubResource("Animation_uc0x4"),
 &"fade_to_black": SubResource("Animation_pk5j4"),
-&"show_game_over": SubResource("Animation_pkmr8")
+&"show_game_over": SubResource("Animation_pkmr8"),
+&"show_win_screen": SubResource("Animation_76orx")
 }
 
 [node name="PlayerHUD" type="CanvasLayer"]
+process_mode = 3
 layer = 2
 script = ExtResource("1_iori6")
 
@@ -254,6 +429,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="HealthBar" parent="Control" instance=ExtResource("3_76orx")]
+layout_mode = 1
+offset_left = 17.0
+offset_top = 587.0
+offset_right = 81.0
+offset_bottom = 597.0
+scale = Vector2(5, 5)
+max_value = 8.0
+value = 8.0
 
 [node name="GameOver" type="Control" parent="Control"]
 modulate = Color(1, 1, 1, 0)
@@ -287,7 +472,7 @@ offset_bottom = -37.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "GAME OVER"
-label_settings = SubResource("LabelSettings_iori6")
+label_settings = SubResource("LabelSettings_76orx")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/GameOver"]
 layout_mode = 1
@@ -309,7 +494,67 @@ theme_override_fonts/font = ExtResource("1_pk5j4")
 theme_override_font_sizes/font_size = 32
 text = "Retry"
 
-[node name="FadeToBack" type="ColorRect" parent="Control/GameOver"]
+[node name="WinScreen" type="Control" parent="Control"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control/WinScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.823529)
+
+[node name="Label" type="Label" parent="Control/WinScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -255.0
+offset_top = -62.0
+offset_right = 255.0
+offset_bottom = 18.0006
+grow_horizontal = 2
+grow_vertical = 2
+text = "YOU WIN"
+label_settings = SubResource("LabelSettings_rdp1g")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/WinScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = 36.5
+offset_right = 30.0
+offset_bottom = 67.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ReplayButton" type="Button" parent="Control/WinScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_pk5j4")
+theme_override_font_sizes/font_size = 32
+text = "Replay"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control"]
+root_node = NodePath("../GameOver")
+libraries = {
+&"": SubResource("AnimationLibrary_54pr6")
+}
+
+[node name="FadeToBlack" type="ColorRect" parent="Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -318,20 +563,5 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/GameOver"]
-libraries = {
-&"": SubResource("AnimationLibrary_54pr6")
-}
-
-[node name="HealthBar" parent="Control" instance=ExtResource("3_76orx")]
-layout_mode = 1
-offset_left = 17.0
-offset_top = 587.0
-offset_right = 81.0
-offset_bottom = 597.0
-scale = Vector2(5, 5)
-max_value = 8.0
-value = 8.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

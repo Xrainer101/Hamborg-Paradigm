@@ -5,6 +5,7 @@ var entity: CharacterBody2D
 @export var speed : float = 150.0
 # @export var knockback_speed : float = 60.0
 @export var jump_velocity: float = -350.0
+@export var jump_sound : AudioStream
 
 func Init():
 	# entity._damaged.connect(player_damaged)
@@ -35,6 +36,8 @@ func Handle_Input(_event : InputEvent):
 	#Handle jump
 	if Input.is_action_just_pressed("jump") and entity.is_on_floor():
 		#print("Enter jump state")
+		entity.audio.stream = jump_sound
+		entity.audio.play()
 		entity.velocity.y = jump_velocity
 		# Transitioned.emit(self, "PlayerAir")
 	#Handle attack

@@ -7,6 +7,7 @@ var attacking : bool = false
 @onready var sword_hit_box: HitBox = $"../../Sprite2D/Sword/HitBox"
 @export_range(1,20,0.5) var decelerate_speed : float = 5.0
 # @export var knockback_speed : float = 60.0
+@export var slash_sound : AudioStream
 
 func Init():
 	# entity._damaged.connect(player_damaged)
@@ -15,6 +16,9 @@ func Init():
 
 func Enter():
 	#print("Enter attack state")
+	entity.attack_audio.pitch_scale = randf_range(0.9, 1.1)
+	entity.attack_audio.stream = slash_sound
+	entity.attack_audio.play()
 	entity._update_animation("Sword")
 	
 	entity.anim.animation_finished.connect(EndAttack)

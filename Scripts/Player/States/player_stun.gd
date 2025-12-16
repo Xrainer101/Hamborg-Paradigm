@@ -21,6 +21,7 @@ func Enter():
 	entity.velocity.y = clampf(entity.velocity.y, entity.velocity.y, 0.0)
 	
 	_animation_finished = false
+	entity.audio.volume_db = -2.0
 	entity.make_invulnerable(invulnerable_duration)
 	entity._update_animation("Stun")
 	
@@ -28,6 +29,7 @@ func Enter():
 
 func Exit():
 	entity.anim.animation_finished.disconnect (_on_animation_finished )
+	entity.audio.volume_db = 0.0
 	pass
 
 func Update(delta: float):

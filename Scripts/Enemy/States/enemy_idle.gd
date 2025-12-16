@@ -4,6 +4,7 @@ class_name EnemyIdle extends State
 # @export var knockback_speed : float = 30.0
 var move_speed : int = max_move_speed
 var entity : CharacterBody2D
+@onready var wall_ray_cast: RayCast2D = $"../../Sprite2D/RayCast2D"
 
 var move_direction : int
 var wander_time : float
@@ -32,6 +33,8 @@ func Update(delta: float):
 		entity._update_animation("Walk")
 
 func Physics_Update(delta: float):
+	if(wall_ray_cast.is_colliding()):
+		move_direction *= -1
 	if entity:
 		entity.velocity.x = move_direction * move_speed
 	
