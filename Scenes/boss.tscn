@@ -1,16 +1,16 @@
-[gd_scene load_steps=21 format=3 uid="uid://duxdwbh7bl88r"]
+[gd_scene load_steps=21 format=3 uid="uid://dirse4a05jkpp"]
 
-[ext_resource type="Script" uid="uid://di5kh88ql0558" path="res://Scripts/Enemy/enemy.gd" id="1_afpow"]
-[ext_resource type="Texture2D" uid="uid://c46g1j282436i" path="res://Assets/metroid_asset_1_2/Sprites/Enemies/enemy_rpg.png" id="2_287tu"]
-[ext_resource type="Script" uid="uid://c1dcin82errem" path="res://Scripts/state_machine.gd" id="3_0830c"]
-[ext_resource type="AudioStream" uid="uid://cdsvi3ysvke7w" path="res://Assets/SFX/hit_00.wav" id="3_haro7"]
-[ext_resource type="AudioStream" uid="uid://dipuh1jrcys1y" path="res://Assets/SFX/hit_01.wav" id="4_56vhr"]
-[ext_resource type="Script" uid="uid://dg1y348uo3ceg" path="res://Scripts/Enemy/States/enemy_idle.gd" id="4_287tu"]
-[ext_resource type="Script" uid="uid://bneq13gh16dxi" path="res://Scripts/Enemy/States/enemy_follow.gd" id="5_0830c"]
-[ext_resource type="PackedScene" uid="uid://b4trvg040e0k7" path="res://Scenes/components/hit_box.tscn" id="6_1dp5w"]
-[ext_resource type="Script" uid="uid://pd32i77j1sr1" path="res://Scripts/Enemy/States/enemy_stun.gd" id="6_auwsv"]
-[ext_resource type="Script" uid="uid://cwsft3qnox2f6" path="res://Scripts/Enemy/States/enemy_death.gd" id="7_8uf12"]
-[ext_resource type="PackedScene" uid="uid://c3b1jjuxoqcr2" path="res://Scenes/components/hurt_box.tscn" id="7_auwsv"]
+[ext_resource type="Script" uid="uid://di5kh88ql0558" path="res://Scripts/Enemy/enemy.gd" id="1_odcco"]
+[ext_resource type="Texture2D" uid="uid://c46g1j282436i" path="res://Assets/metroid_asset_1_2/Sprites/Enemies/enemy_rpg.png" id="2_q76ad"]
+[ext_resource type="AudioStream" uid="uid://cdsvi3ysvke7w" path="res://Assets/SFX/hit_00.wav" id="3_lel8w"]
+[ext_resource type="Script" uid="uid://c1dcin82errem" path="res://Scripts/state_machine.gd" id="3_nuv35"]
+[ext_resource type="AudioStream" uid="uid://dipuh1jrcys1y" path="res://Assets/SFX/hit_01.wav" id="4_6xjeg"]
+[ext_resource type="Script" uid="uid://bvwwnqfv0scnw" path="res://Scripts/Enemy/States/boss_idle.gd" id="4_odcco"]
+[ext_resource type="Script" uid="uid://dl3ku35e1ujnq" path="res://Scripts/Enemy/States/boss_charge.gd" id="5_odcco"]
+[ext_resource type="Script" uid="uid://pd32i77j1sr1" path="res://Scripts/Enemy/States/enemy_stun.gd" id="6_r0blv"]
+[ext_resource type="Script" uid="uid://cwsft3qnox2f6" path="res://Scripts/Enemy/States/enemy_death.gd" id="7_42olf"]
+[ext_resource type="PackedScene" uid="uid://b4trvg040e0k7" path="res://Scenes/components/hit_box.tscn" id="8_hbq6j"]
+[ext_resource type="PackedScene" uid="uid://c3b1jjuxoqcr2" path="res://Scenes/components/hurt_box.tscn" id="9_ursto"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kjpuc"]
 radius = 6.0
@@ -41,7 +41,7 @@ tracks/1/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("3_haro7")
+"stream": ExtResource("3_lel8w")
 }],
 "times": PackedFloat32Array(0)
 }
@@ -96,6 +96,21 @@ tracks/0/keys = {
 "update": 1,
 "values": [7]
 }
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_6xjeg")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
 
 [sub_resource type="Animation" id="Animation_7p0xe"]
 resource_name = "Walk"
@@ -128,18 +143,20 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_po0sg"]
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Boss" type="CharacterBody2D"]
+scale = Vector2(4, 4)
 collision_layer = 8
 collision_mask = 4
-script = ExtResource("1_afpow")
+script = ExtResource("1_odcco")
+max_hp = 16
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_287tu")
+texture = ExtResource("2_q76ad")
 hframes = 5
 vframes = 4
 frame = 1
 
-[node name="RayCast2D" type="RayCast2D" parent="Sprite2D"]
+[node name="WallRayCast2D" type="RayCast2D" parent="Sprite2D"]
 target_position = Vector2(8, 0)
 collision_mask = 4
 
@@ -154,34 +171,34 @@ libraries = {
 autoplay = "Idle"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("_entity", "initial_state")]
-script = ExtResource("3_0830c")
+script = ExtResource("3_nuv35")
 _entity = NodePath("..")
 initial_state = NodePath("EnemyIdle")
 
 [node name="EnemyIdle" type="Node" parent="StateMachine"]
-script = ExtResource("4_287tu")
-metadata/_custom_type_script = "uid://dg1y348uo3ceg"
+script = ExtResource("4_odcco")
+metadata/_custom_type_script = "uid://bvwwnqfv0scnw"
 
-[node name="EnemyFollow" type="Node" parent="StateMachine"]
-script = ExtResource("5_0830c")
-metadata/_custom_type_script = "uid://bneq13gh16dxi"
+[node name="BossCharge" type="Node" parent="StateMachine"]
+script = ExtResource("5_odcco")
+metadata/_custom_type_script = "uid://dl3ku35e1ujnq"
 
 [node name="EnemyStun" type="Node" parent="StateMachine"]
-script = ExtResource("6_auwsv")
-hurt_sound = ExtResource("4_56vhr")
+script = ExtResource("6_r0blv")
+hurt_sound = ExtResource("4_6xjeg")
 metadata/_custom_type_script = "uid://pd32i77j1sr1"
 
 [node name="EnemyDeath" type="Node" parent="StateMachine"]
-script = ExtResource("7_8uf12")
+script = ExtResource("7_42olf")
 metadata/_custom_type_script = "uid://cwsft3qnox2f6"
 
-[node name="HitBox" parent="." instance=ExtResource("6_1dp5w")]
+[node name="HitBox" parent="." instance=ExtResource("8_hbq6j")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("CircleShape2D_8uf12")
 debug_color = Color(0.999479, 0, 0.111766, 0.42)
 
-[node name="HurtBox" parent="." instance=ExtResource("7_auwsv")]
+[node name="HurtBox" parent="." instance=ExtResource("9_ursto")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("CircleShape2D_po0sg")

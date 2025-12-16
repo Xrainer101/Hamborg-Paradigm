@@ -1,10 +1,13 @@
 class_name Enemy extends CharacterBody2D
 
 @export var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
-@export var hp: int = 3
+@export var max_hp: int = 3
+var hp : int
 var invulnerable : bool = false
+var super_armor : bool = false
 
 @onready var anim: AnimationPlayer = $AnimationPlayer
+@onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var hurt_box: HurtBox = $HurtBox
 
@@ -13,6 +16,7 @@ signal _death( hit_box : HitBox )
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	hp = max_hp
 	hurt_box.Damaged.connect( _take_damage )
 	pass # Replace with function body.
 

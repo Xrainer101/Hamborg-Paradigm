@@ -21,6 +21,7 @@ func Enter():
 	entity.velocity.y = clampf(entity.velocity.y, entity.velocity.y, 0.0)
 	
 	_animation_finished = false
+	entity.audio.volume_db = -2.0
 	entity.make_invulnerable(invulnerable_duration)
 	entity._update_animation("Stun")
 	
@@ -28,6 +29,7 @@ func Enter():
 
 func Exit():
 	entity.anim.animation_finished.disconnect (_on_animation_finished )
+	entity.audio.volume_db = 0.0
 	pass
 
 func Update(delta: float):
@@ -38,8 +40,9 @@ func Physics_Update(delta: float):
 	entity.velocity.x -= (entity.velocity.x * decelerate_speed * delta) - (entity.direction * 5)
 
 func player_damaged( hit_box : HitBox ) -> void:
-	damage_position = hit_box.global_position
-	Transitioned.emit(self, "PlayerStun")
+	if entity.super_armor == false:
+		damage_position = hit_box.global_position
+		Transitioned.emit(self, "PlayerStun")
 
 func _on_animation_finished(_a : String) -> void:
 	_animation_finished = true

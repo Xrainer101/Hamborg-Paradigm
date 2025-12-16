@@ -5,6 +5,7 @@ var entity: CharacterBody2D
 @export var speed : float = 150.0
 # @export var knockback_speed : float = 60.0
 @export var jump_velocity: float = -350.0
+@export var jump_sound : AudioStream
 
 func Init():
 	# entity._damaged.connect(player_damaged)
@@ -14,7 +15,7 @@ func Init():
 func Physics_Update(delta: float):
 	#Make sure entity is on the ground
 	if not entity.is_on_floor():
-		entity.velocity.y += entity.gravity * delta
+		Transitioned.emit(self, "PlayerAir")
 	
 	if entity.direction > 0:
 		entity.sprite.scale.x = 1
@@ -35,8 +36,10 @@ func Handle_Input(_event : InputEvent):
 	#Handle jump
 	if Input.is_action_just_pressed("jump") and entity.is_on_floor():
 		#print("Enter jump state")
+		entity.audio.stream = jump_sound
+		entity.audio.play()
 		entity.velocity.y = jump_velocity
-		Transitioned.emit(self, "PlayerAir")
+		# Transitioned.emit(self, "PlayerAir")
 	#Handle attack
 	elif Input.is_action_pressed("attack"):
 		#print("Player attacked")

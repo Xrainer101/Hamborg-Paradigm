@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://760vatymkaj2"]
+
+[ext_resource type="Texture2D" uid="uid://ct1eosj6jn5h4" path="res://Assets/metroid_asset_1_2/Sprites/Player/Player_metroid.png" id="1_lbp3g"]
+[ext_resource type="Script" uid="uid://bgu3g7dju4nsj" path="res://Scripts/Player/player_spawn.gd" id="1_qug3u"]
+
+[node name="PlayerSpawn" type="Marker2D"]
+script = ExtResource("1_qug3u")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.239216, 1, 0.266667, 0.690196)
+texture = ExtResource("1_lbp3g")
+hframes = 8
+vframes = 7

@@ -9,6 +9,7 @@ var direction : Vector2
 @export var decelerate_speed : float = 2.5
 @export var knockback_speed : float = 30.0
 @export var invulnerable_duration : float = 1.0
+@export var hurt_sound : AudioStream
 
 func Init():
 	entity._damaged.connect(enemy_damaged)
@@ -34,14 +35,17 @@ func Exit():
 
 func Update(delta : float):
 	if _animation_finished == true:
-		Transitioned.emit(self, "EnemyFollow")
+		Transitioned.emit(self, "EnemyIdle")
 
 func Physics_Update(delta : float):
 	entity.velocity.x -= entity.velocity.x * decelerate_speed * delta
 
 func enemy_damaged( hit_box : HitBox ) -> void:
-	damage_position = hit_box.global_position
-	Transitioned.emit(self, "EnemyStun")
+	entity.audio.stream = hurt_sound
+	entity.audio.play()
+	if entity.super_armor == false:
+		damage_position = hit_box.global_position
+		Transitioned.emit(self, "EnemyStun")
 
 func _on_animation_finished(_a : String) -> void:
 	_animation_finished = true

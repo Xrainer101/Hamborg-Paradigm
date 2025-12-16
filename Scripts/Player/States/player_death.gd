@@ -11,7 +11,7 @@ var _animation_finished : bool = false
 #@export var invulnerable_duration : float = 1.0
 
 func Init():
-	#entity._damaged.connect(player_damaged)
+	LevelManager.level_load_started.connect(_revive)
 	pass
 
 func Enter():
@@ -50,3 +50,6 @@ func Physics_Update(delta: float):
 
 func _on_animation_finished(_a : String) -> void:
 	_animation_finished = true
+
+func _revive() -> void:
+	Transitioned.emit(self, "PlayerMovement")

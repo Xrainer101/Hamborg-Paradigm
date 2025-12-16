@@ -9,6 +9,7 @@ var attacking : bool = false
 @export var air_acceleration: float = 50.0
 @export_range(1,20,0.5) var decelerate_speed : float = 5.0
 # @export var knockback_speed : float = 60.0
+@export var slash_sound : AudioStream
 
 func Init():
 	# entity._damaged.connect(player_damaged)
@@ -17,6 +18,9 @@ func Init():
 
 func Enter():
 	#print("Enter air attack state")
+	entity.attack_audio.pitch_scale = randf_range(0.9, 1.1)
+	entity.attack_audio.stream = slash_sound
+	entity.attack_audio.play()
 	entity._update_animation("Sword")
 	
 	entity.anim.animation_finished.connect(EndAttack)
@@ -30,6 +34,7 @@ func Enter():
 
 func Exit():
 	entity.anim.animation_finished.disconnect(EndAttack)
+	# entity.audio.pitch_scale = 1.0
 	attacking = false
 	sword_hit_box.monitoring = false
 	pass
