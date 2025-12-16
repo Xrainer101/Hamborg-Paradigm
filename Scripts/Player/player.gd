@@ -35,9 +35,9 @@ func _physics_process(delta) -> void:
 	move_and_slide()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("test"):
-		update_hp(-99)
-		_damaged.emit( $Sprite2D/Sword/HitBox )
+	# if event.is_action_pressed("test"):
+		# update_hp(-99)
+		# _damaged.emit( $Sprite2D/Sword/HitBox )
 	pass
 
 func _update_animation(anim_name : String) -> void:
