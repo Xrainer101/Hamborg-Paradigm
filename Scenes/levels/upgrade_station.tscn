@@ -12,7 +12,8 @@ script = ExtResource("1_6jvq7")
 position = Vector2(0, 54)
 
 [node name="LevelTransition" parent="." instance=ExtResource("3_macvh")]
-position = Vector2(0, -13)
+position = Vector2(0, -14)
+size = 1
 side = 3
 
 [node name="Camera2D" type="Camera2D" parent="."]

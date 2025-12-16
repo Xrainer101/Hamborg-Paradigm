@@ -334,7 +334,9 @@ debug_color = Color(0.657092, 0.516198, 0, 0.42)
 [node name="Audio" type="Node2D" parent="."]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Audio"]
+process_mode = 3
 max_polyphony = 4
 
 [node name="AttackStreamPlayer2D" type="AudioStreamPlayer2D" parent="Audio"]
+process_mode = 3
 max_polyphony = 4

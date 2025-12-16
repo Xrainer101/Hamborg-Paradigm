@@ -139,6 +139,10 @@ hframes = 5
 vframes = 4
 frame = 1
 
+[node name="RayCast2D" type="RayCast2D" parent="Sprite2D"]
+target_position = Vector2(8, 0)
+collision_mask = 4
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_kjpuc")

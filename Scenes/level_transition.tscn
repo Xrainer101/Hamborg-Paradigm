@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bfpvh28s5n7x1"]
+[gd_scene load_steps=4 format=3 uid="uid://bfpvh28s5n7x1"]
 
 [ext_resource type="Script" uid="uid://dcf4jptby7aej" path="res://Scripts/level_transition.gd" id="1_30st1"]
+[ext_resource type="Texture2D" uid="uid://6l32odms4ur4" path="res://Assets/Sprites/healthbarUnder.png" id="2_mmgyd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qwrix"]
 resource_local_to_scene = true
@@ -15,3 +16,10 @@ script = ExtResource("1_30st1")
 position = Vector2(-16, 0)
 shape = SubResource("RectangleShape2D_qwrix")
 debug_color = Color(0.761289, 0.177489, 1, 0.42)
+
+[node name="DoorSprite" type="Sprite2D" parent="CollisionShape2D"]
+rotation = 1.5708
+scale = Vector2(1.94126, 3.19688)
+texture = ExtResource("2_mmgyd")
+region_enabled = true
+region_rect = Rect2(0, 0, 33, 10)

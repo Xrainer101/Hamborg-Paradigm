@@ -15,7 +15,7 @@ script = ExtResource("1_03ouh")
 position = Vector2(-145, 53)
 
 [node name="LevelTransition" parent="." instance=ExtResource("3_5tti6")]
-position = Vector2(-157, -108)
+position = Vector2(-157, -125)
 size = 1
 side = 2
 
