@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dt0aa8glls5oc"]
+[gd_scene load_steps=8 format=3 uid="uid://dt0aa8glls5oc"]
 
 [ext_resource type="Script" uid="uid://jk5s6xrs67ib" path="res://Scripts/level.gd" id="1_03ouh"]
 [ext_resource type="PackedScene" uid="uid://bkpwvqywltah6" path="res://Scenes/platform.tscn" id="1_53o4y"]
 [ext_resource type="PackedScene" uid="uid://760vatymkaj2" path="res://Scenes/player/player_spawn.tscn" id="1_jenbt"]
 [ext_resource type="PackedScene" uid="uid://bfpvh28s5n7x1" path="res://Scenes/level_transition.tscn" id="3_5tti6"]
 [ext_resource type="PackedScene" uid="uid://dirse4a05jkpp" path="res://Scenes/boss.tscn" id="5_g1coh"]
+[ext_resource type="PackedScene" uid="uid://wgvyhvtv7e0x" path="res://Scenes/levels/enemy_checker.tscn" id="5_vhdbj"]
 [ext_resource type="PackedScene" uid="uid://ca3cum6upsggi" path="res://Scenes/components/health_bar.tscn" id="6_024qa"]
 
 [node name="Boss_Level" type="Node2D"]
@@ -39,7 +40,10 @@ scale = Vector2(5, 5)
 position = Vector2(-1, 29)
 scale = Vector2(4.5, 0.5)
 
-[node name="Boss" parent="." instance=ExtResource("5_g1coh")]
+[node name="EnemyChecker" parent="." instance=ExtResource("5_vhdbj")]
+final_level = true
+
+[node name="Boss" parent="EnemyChecker" instance=ExtResource("5_g1coh")]
 position = Vector2(107, 33)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -65,4 +69,4 @@ grow_horizontal = 2
 scale = Vector2(6, 6)
 max_value = 16.0
 value = 16.0
-entity = NodePath("../../../Boss")
+entity = NodePath("../../../EnemyChecker/Boss")

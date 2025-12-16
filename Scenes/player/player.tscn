@@ -13,8 +13,7 @@
 [ext_resource type="Script" uid="uid://dla2r8hncepfw" path="res://Scripts/Player/States/player_death.gd" id="10_gymyn"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3smsa"]
-radius = 13.0
-height = 26.0
+radius = 15.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
 radius = 6.0
@@ -239,7 +238,7 @@ frame = 34
 
 [node name="HitBox" parent="Sprite2D/Sword" node_paths=PackedStringArray("_player") instance=ExtResource("3_x3wgy")]
 z_index = 5
-position = Vector2(7, 9)
+position = Vector2(11, 9)
 collision_mask = 8
 monitoring = false
 _player = NodePath("../../..")

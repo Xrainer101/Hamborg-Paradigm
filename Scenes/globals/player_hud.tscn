@@ -160,7 +160,7 @@ tracks/5/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_pkmr8"]
-resource_name = "show_game_over"
+resource_name = "show_win"
 length = 4.0
 step = 0.1
 tracks/0/type = "value"
@@ -240,10 +240,11 @@ tracks/5/keys = {
 _data = {
 &"RESET": SubResource("Animation_uc0x4"),
 &"fade_to_black": SubResource("Animation_pk5j4"),
-&"show_game_over": SubResource("Animation_pkmr8")
+&"show_win": SubResource("Animation_pkmr8")
 }
 
 [node name="PlayerHUD" type="CanvasLayer"]
+process_mode = 3
 layer = 2
 script = ExtResource("1_iori6")
 
@@ -320,6 +321,75 @@ mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/GameOver"]
+libraries = {
+&"": SubResource("AnimationLibrary_54pr6")
+}
+
+[node name="WinScreen" type="Control" parent="Control"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control/WinScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.823529)
+
+[node name="Label" type="Label" parent="Control/WinScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = -60.0
+offset_right = -44.0
+offset_bottom = -37.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "YOU WIN"
+label_settings = SubResource("LabelSettings_iori6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/WinScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = 45.0
+offset_right = 25.0
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ReplayButton" type="Button" parent="Control/WinScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_pk5j4")
+theme_override_font_sizes/font_size = 32
+text = "Retry"
+
+[node name="FadeToBack" type="ColorRect" parent="Control/WinScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/WinScreen"]
 libraries = {
 &"": SubResource("AnimationLibrary_54pr6")
 }
